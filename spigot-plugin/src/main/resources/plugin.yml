@@ -1,0 +1,6 @@
+main: io.github.pigaut.yamlib.YAMLibPlugin
+name: YAMLib
+author: pigaut
+description: ${project.description}
+version: 1.0
+api-version: 1.13

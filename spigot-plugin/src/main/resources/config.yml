@@ -1,0 +1,33 @@
+
+int-as-long: 1000
+
+big-int: 1902312837418902743
+
+name: ExampleApp
+version: 1.0
+
+fields: # indexed section or sequence
+  - key: max_connections
+    value: 100
+  - key: timeout
+    value: 30.5
+  - key: maintenance_mode
+    value: false
+
+location: ["monke_world", 1, 1, 1]
+
+matrix:
+  - [0, 0, 0]
+  - [0, 0, 0]
+  - [0, 0, 0]
+
+materials:
+  - [DIAMOND, DIAMOND]
+  - [DIAMOND, DIAMOND]
+
+section:
+  child: value
+
+date: 02/06/2000
+time: 16:00
+date-time: 02/06/2000 16:00
