@@ -1,33 +1,47 @@
+item:
+  type: diamond sword     # <type|material>
+  amount: 1               # (amount)
+  name: custom name       # (name)
+  lore: [monkey, mono]    # (lore)
+  custom-model: 10001     # (custom-model)
+  damage: 100             # (damage|durability)
+  repair-cost: 100        # (repair-cost)
+  flags: [ hide enchants ]
+  unbreakable: false      # (unbreakable)
+  enchants:               # (enchants|enchantments)
+    sharpness: 5
+  attributes:             # (attributes)
 
-int-as-long: 1000
+    - type: generic.attack_damage    # <type|attribute>
+      name: Attack Damage Modifier   # (name)
+      amount: 2.0                    # <amount>
+      slot: mainhand                 # <slot>
+      operation: 0                   # <operation>
 
-big-int: 1902312837418902743
+   # You can also use nested sections ->
+   #attack_speed:
+   #  type: generic.attack_speed
+   #  name: Attack Speed Modifier
+   #  amount: 2.0
+   #  slot: mainhand
+   #  operation: 0
 
-name: ExampleApp
-version: 1.0
+location:
+  world: world   # (world)
+  x: 100         # <x>
+  y: 100         # <y>
+  z: 100         # <z>
+  yaw: 10        # (yaw)
+  pitch: 10      # (pitch)
 
-fields: # indexed section or sequence
-  - key: max_connections
-    value: 100
-  - key: timeout
-    value: 30.5
-  - key: maintenance_mode
-    value: false
+locations:
+  - { world: world, x: 100, y: 100, z: 100, yaw: 10, pitch: 10 }
+  - { x: 100, y: 100, z: 100, yaw: 10, pitch: 10 }
+  - { world: world, x: 100, y: 100, z: 100 }
+  - { x: 100, y: 100, z: 100 }
 
-location: ["monke_world", 1, 1, 1]
 
-matrix:
-  - [0, 0, 0]
-  - [0, 0, 0]
-  - [0, 0, 0]
 
-materials:
-  - [DIAMOND, DIAMOND]
-  - [DIAMOND, DIAMOND]
 
-section:
-  child: value
 
-date: 02/06/2000
-time: 16:00
-date-time: 02/06/2000 16:00
+

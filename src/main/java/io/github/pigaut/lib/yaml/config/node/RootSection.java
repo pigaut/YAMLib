@@ -1,13 +1,10 @@
-package io.github.pigaut.lib.yaml.node;
+package io.github.pigaut.lib.yaml.config.node;
 
 import io.github.pigaut.lib.yaml.*;
 import org.jetbrains.annotations.*;
+import org.snakeyaml.engine.v2.common.*;
 
 public abstract class RootSection extends SectionNode implements Config {
-
-    protected RootSection() {
-        super(false);
-    }
 
     @Override
     public boolean isRoot() {

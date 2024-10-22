@@ -1,4 +1,4 @@
-package io.github.pigaut.lib.yaml.serialize;
+package io.github.pigaut.lib.yaml.config;
 
 import io.github.pigaut.lib.yaml.*;
 import org.snakeyaml.engine.v2.api.*;
@@ -18,11 +18,9 @@ public class ConfigRepresenter extends BaseRepresenter {
     public static final Pattern MULTILINE_PATTERN = Pattern.compile("\n|\u0085");
 
     protected Map<Class<? extends Object>, Tag> classTags;
-
     protected DumpSettings settings;
 
     public ConfigRepresenter(DumpSettings settings) {
-
         this.defaultFlowStyle = settings.getDefaultFlowStyle();
         this.defaultScalarStyle = settings.getDefaultScalarStyle();
 
@@ -152,15 +150,11 @@ public class ConfigRepresenter extends BaseRepresenter {
         @Override
         public Node representData(Object data) {
             ConfigSection section = (ConfigSection) data;
-            return section.isSequence() ? representSequence(getTag(data.getClass(), Tag.SEQ), section.toList(), FlowStyle.AUTO) :
-                    representMapping(getTag(data.getClass(), Tag.MAP), section.toMap(), FlowStyle.BLOCK);
+
+            return section.isKeyless() ? representSequence(getTag(data.getClass(), Tag.SEQ), section.toList(), section.getFlowStyle()) :
+                    representMapping(getTag(data.getClass(), Tag.MAP), section.getNestedFields(), section.getFlowStyle());
         }
 
-    }
-
-    @Override
-    protected Node representMapping(Tag tag, Map<?, ?> mapping, FlowStyle flowStyle) {
-        return super.representMapping(tag, mapping, FlowStyle.BLOCK);
     }
 
 }

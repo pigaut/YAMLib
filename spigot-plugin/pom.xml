@@ -4,24 +4,37 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.pigaut.yamlib</groupId>
-    <artifactId>YAMLibPlugin</artifactId>
+    <groupId>io.github.pigaut.lib.yaml</groupId>
+    <artifactId>SpigotYAMLib</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
-    <name>YAML Lib Plugin</name>
+    <name>Spigot YAML Lib</name>
+
+    <repositories>
+        <repository>
+            <id>codemc-repo</id>
+            <url>https://repo.codemc.io/repository/maven-public/</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
 
     <dependencies>
-        <dependency>
-            <groupId>io.github.pigaut.lib.yaml</groupId>
-            <artifactId>YAMLib</artifactId>
-            <version>1.0</version>
-            <scope>compile</scope>
-        </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.8.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.pigaut.lib.yaml</groupId>
+            <artifactId>YAMLib</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>de.tr7zw</groupId>
+            <artifactId>item-nbt-api</artifactId>
+            <version>2.13.2</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
@@ -33,23 +46,28 @@
                 <version>3.6.0</version>
                 <executions>
                     <execution>
+                        <id>shade</id>
                         <phase>package</phase>
                         <goals>
                             <goal>shade</goal>
                         </goals>
-                        <configuration>
-                            <relocations>
-                                <relocation>
-                                    <pattern>io.github.pigaut.lib.yaml</pattern>
-                                    <shadedPattern>io.github.pigaut.shaded.yamlib</shadedPattern>
-                                </relocation>
-                            </relocations>
-                            <shadedArtifactAttached>true</shadedArtifactAttached>
-                            <outputDirectory>D:\files\Development\java\spigot\servers\1.20.4-paper\plugins</outputDirectory>
-                            <finalName>YAMLib-${project.version}</finalName>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>io.github.pigaut.lib.yaml:YAMLib</pattern>
+                            <shadedPattern>io.github.pigaut.shaded.yamlib</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>de.tr7zw.changeme.nbtapi</pattern>
+                            <shadedPattern>io.github.pigaut.shaded.nbtapi</shadedPattern>
+                        </relocation>
+                    </relocations>
+                    <shadedArtifactAttached>true</shadedArtifactAttached>
+                    <outputDirectory>D:\files\Development\java\spigot\servers\1.20.4-paper\plugins</outputDirectory>
+                    <finalName>YAMLib-${project.version}</finalName>
+                </configuration>
             </plugin>
         </plugins>
     </build>

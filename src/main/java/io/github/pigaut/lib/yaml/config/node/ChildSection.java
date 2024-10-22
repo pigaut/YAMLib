@@ -1,7 +1,9 @@
-package io.github.pigaut.lib.yaml.node;
+package io.github.pigaut.lib.yaml.config.node;
 
 import io.github.pigaut.lib.yaml.*;
+import io.github.pigaut.lib.yaml.util.*;
 import org.jetbrains.annotations.*;
+import org.snakeyaml.engine.v2.common.*;
 
 import java.util.*;
 
@@ -10,15 +12,15 @@ public class ChildSection extends SectionNode {
     private final SectionNode parent;
     private final String key;
 
-    public ChildSection(SectionNode parent, String key, boolean sequence) {
-        super(sequence);
+    public ChildSection(@NotNull SectionNode parent, @NotNull String key, @Nullable FlowStyle flowStyle) {
+        Preconditions.checkNotNull(parent, "parent section cannot be null");
+        Preconditions.checkNotNull(key, "key cannot be null");
         this.parent = parent;
         this.key = key;
+        if (flowStyle != null) {
+            setFlowStyle(flowStyle);
+        }
         this.parent.children.put(key, this);
-    }
-
-    public ChildSection(SectionNode parent, String key) {
-        this(parent, key, false);
     }
 
     @Override
@@ -32,7 +34,7 @@ public class ChildSection extends SectionNode {
     }
 
     @Override
-    public @NotNull ConfigSection getParent() {
+    public @NotNull SectionNode getParent() {
         return parent;
     }
 
@@ -63,7 +65,7 @@ public class ChildSection extends SectionNode {
             currentNode = branch[i];
             String key = currentNode.getKey();
 
-            while (currentNode.isSequence() && i < branch.length - 1) {
+            while (currentNode.isKeyless() && i < branch.length - 1) {
                 ConfigSection child = branch[1 + i++];
 
                 key = key + "[" + child.getKey() + "]";
